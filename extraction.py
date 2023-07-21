@@ -46,11 +46,94 @@ def swarm_targeting_with_all_data(qc, num_qubits, num_time_steps, telemetry_data
         custom_entanglement(qc, num_qubits)
 
         # Apply Y gate on all qubits for more complex swarm interactions
-        qc.y(range(num_qubits))
+        apply_Y_gate(qc, num_qubits)
+
+        # Apply quantum parallelism for faster processing
+        qc.barrier()
+        qc.h(range(num_qubits))
+
+        # Perform adaptive decision-making based on real-time data updates
+        adaptive_decision_making(qc, num_qubits, telemetry_data[t], threat_data[t], remote_sensing_data[t], terrain_data[t])
 
     # Apply quantum error correction to enhance targeting accuracy
     qc.barrier()
     error_correction(qc, num_qubits)
+
+# Function to map target position to rotation angle for the rz gate
+def map_target_position_to_rotation_angle(target_position):
+    # Some mapping function to convert target position to a suitable rotation angle
+    # For example, if target_position is in the range [0, 1], map it to the range [0, 2*pi]
+    return target_position * 2 * np.pi
+
+# Function to calculate adaptive intercept angle based on combined data
+def calculate_adaptive_intercept_angle(telemetry_data, threat_data, remote_sensing_data):
+    # Some adaptive strategy to calculate the intercept angle based on the combined data
+    # For example, a weighted average of telemetry, threat, and remote sensing data
+    weighted_avg = 0.5 * telemetry_data + 0.3 * threat_data + 0.2 * remote_sensing_data
+    intercept_angle = map_target_position_to_rotation_angle(weighted_avg)
+    return intercept_angle
+
+# Function for GIS terrain prediction based on terrain and telemetry data
+def GIS_terrain_prediction(terrain_data, telemetry_data):
+    # Some GIS terrain prediction algorithm to estimate the impact of terrain on targeting
+    # For example, using elevation data, obstacles, and target positions to estimate terrain impact
+    terrain_impact = 0.1 * terrain_data + 0.9 * telemetry_data
+    return terrain_impact
+
+# Function to map terrain impact to rotation angle for the rz gate
+def map_terrain_impact_to_rotation_angle(terrain_impact):
+    # Some mapping function to convert terrain impact to a suitable rotation angle
+    # For example, if terrain_impact is in the range [0, 1], map it to the range [0, pi]
+    return terrain_impact * np.pi
+
+# Function to apply a custom entanglement strategy between adjacent qubits
+def custom_entanglement(qc, num_qubits):
+    # Some custom entanglement strategy for swarm targeting
+    # For example, entangle qubits in a circular pattern to improve interaction
+    for qubit in range(num_qubits - 1):
+        qc.cx(qubit, qubit + 1)
+    qc.cx(num_qubits - 1, 0)
+
+# Function to apply Y gate on all qubits for more complex swarm interactions
+def apply_Y_gate(qc, num_qubits):
+    for qubit in range(num_qubits):
+        qc.y(qubit)
+
+# Function to perform adaptive decision-making based on real-time data updates
+def adaptive_decision_making(qc, num_qubits, telemetry_data, threat_data, remote_sensing_data, terrain_data):
+    for qubit in range(num_qubits):
+        # Quantum parallelism for processing telemetry data
+        target_position = telemetry_data[qubit]
+        rotation_angle = map_target_position_to_rotation_angle(target_position)
+        qc.rz(rotation_angle, qubit)
+
+        # Quantum parallelism for processing threat data
+        if threat_data[qubit] == 1:
+            qc.rx(np.pi, qubit)  # Rotate the qubit in the opposite direction if it is in a threatened region
+
+        # Quantum parallelism for processing remote sensing data
+        target_distance = remote_sensing_data[qubit]
+        qc.ry(rotation_angle / target_distance, qubit)
+
+        # Quantum parallelism for processing terrain data
+        terrain_impact = GIS_terrain_prediction(terrain_data[qubit], telemetry_data[qubit])
+        terrain_adjustment_angle = map_terrain_impact_to_rotation_angle(terrain_impact)
+        qc.rz(terrain_adjustment_angle, qubit)
+
+    # Apply a collective quantum operation based on the adaptive decision-making
+    qc.ry(adaptive_intercept_angle, range(num_qubits))
+
+# Function to apply quantum error correction to enhance targeting accuracy
+def error_correction(qc, num_qubits):
+    # Some quantum error correction code to improve targeting accuracy
+    # For example, using Shor's or Steane's code for error correction
+    for qubit in range(num_qubits):
+        qc.h(qubit)
+        qc.cx(qubit, num_qubits)
+        qc.h(qubit)
+
+# ... (Previous code)
+
 
 # Function to map target position to rotation angle for the rz gate
 def map_target_position_to_rotation_angle(target_position):
