@@ -1,5 +1,5 @@
 # Advanced_QISKIT_Swarm_Targeting_with_Telemetry_Situational_Awareness_Remote_Sensing_GIS_Terrain_Prediction_and_Anticipatory_Threat_Analysis.py
-#Kidnapped and Tortured in Orange County California, and they won't take a police report. Hmmm. 
+#Kidnapped and Tortured in Orange County California, and they won't take a police report. Corrupt much? Hmmm. 
 
 import numpy as np
 from qiskit import Aer, QuantumCircuit, transpile, assemble, execute
